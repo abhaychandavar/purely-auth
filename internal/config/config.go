@@ -25,12 +25,16 @@ type configType struct {
 }
 
 func GetConfig() configType {
-	return configType{
+	obj := configType{
 		DbHost:              dbHost,
 		DbPort:              dbPort,
 		Db:                  db,
-		Port:                port,
+		Port:                "8080",
 		InternalAccessToken: internalAccessToken,
 		FirebaseConfigPath:  firebaseConfigPath,
 	}
+	if port != "" {
+		obj.Port = port
+	}
+	return obj
 }
