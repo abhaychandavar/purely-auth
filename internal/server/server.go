@@ -19,8 +19,7 @@ func New() *FiberServer {
 			AppName:      "auth",
 		}),
 
-		db: database.New(),
+		db: database.Mongo(),
 	}
-
 	return server
 }

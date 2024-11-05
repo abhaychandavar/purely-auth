@@ -1,17 +1,16 @@
 package main
 
 import (
+	"auth/internal/config"
 	"auth/internal/server"
+	firebaseHelper "auth/internal/utils/helpers/firebaseHelpers"
 	"context"
 	"fmt"
 	"log"
-	"os"
 	"os/signal"
 	"strconv"
 	"syscall"
 	"time"
-
-	_ "github.com/joho/godotenv/autoload"
 )
 
 func gracefulShutdown(fiberServer *server.FiberServer, done chan bool) {
@@ -39,6 +38,7 @@ func gracefulShutdown(fiberServer *server.FiberServer, done chan bool) {
 }
 
 func main() {
+	firebaseHelper.App()
 
 	server := server.New()
 
@@ -48,7 +48,8 @@ func main() {
 	done := make(chan bool, 1)
 
 	go func() {
-		port, _ := strconv.Atoi(os.Getenv("PORT"))
+		port, _ := strconv.Atoi(config.GetConfig().Port)
+		log.Println("Starting server on port", port)
 		err := server.Listen(fmt.Sprintf(":%d", port))
 		if err != nil {
 			panic(fmt.Sprintf("http server error: %s", err))
