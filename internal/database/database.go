@@ -28,12 +28,6 @@ type service struct {
 }
 
 var (
-	host = config.GetConfig().DbHost
-	port = config.GetConfig().DbPort
-	db   = config.GetConfig().Db
-)
-
-var (
 	instance Service
 	once     sync.Once
 )
@@ -87,7 +81,7 @@ func (s *service) init() {
 
 func Mongo() Service {
 	once.Do(func() {
-		client, err := mongo.Connect(context.Background(), options.Client().ApplyURI(fmt.Sprintf("mongodb://%s:%s/%s", host, port, db)))
+		client, err := mongo.Connect(context.Background(), options.Client().ApplyURI(config.GetConfig().MongoConnUrl))
 		if err != nil {
 			log.Fatal(err)
 		}

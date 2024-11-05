@@ -8,8 +8,7 @@ import (
 
 var (
 	port                = os.Getenv("PORT")
-	dbHost              = os.Getenv("MONGO_DB_HOST")
-	dbPort              = os.Getenv("MONGO_DB_PORT")
+	mongoConnUrl        = os.Getenv("MONGO_CONN_URL")
 	db                  = os.Getenv("MONGO_DB_DATABASE")
 	internalAccessToken = os.Getenv("INTERNAL_ACCESS_TOKEN")
 	firebaseConfigPath  = os.Getenv("FIREBASE_CONFIG_PATH")
@@ -17,8 +16,7 @@ var (
 
 type configType struct {
 	Port                string
-	DbHost              string
-	DbPort              string
+	MongoConnUrl        string
 	Db                  string
 	InternalAccessToken string
 	FirebaseConfigPath  string
@@ -26,8 +24,7 @@ type configType struct {
 
 func GetConfig() configType {
 	obj := configType{
-		DbHost:              dbHost,
-		DbPort:              dbPort,
+		MongoConnUrl:        mongoConnUrl,
 		Db:                  db,
 		Port:                "8080",
 		InternalAccessToken: internalAccessToken,
