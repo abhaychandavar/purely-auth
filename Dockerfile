@@ -21,4 +21,4 @@ RUN make build
 # https://docs.docker.com/reference/dockerfile/#expose
 
 # Run
-CMD ["/docker-gs-ping"]
+CMD ["/app/main"]
